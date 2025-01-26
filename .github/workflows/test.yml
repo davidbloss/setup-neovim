@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set Up Neovim
-        uses: davidbloss/setup-neovim@v1
+        uses: davidbloss/setup-neovim@main
       - name: Print Neovim version
         run: |
           nvim --version
