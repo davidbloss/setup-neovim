@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set Up Neovim - Stable
-        uses: davidbloss/setup-neovim@main
+        uses: davidbloss/setup-neovim@v1
       - name: Print Neovim version
         run: |
           nvim --version
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set Up Neovim - Nightly
-        uses: davidbloss/setup-neovim@main
+        uses: davidbloss/setup-neovim@v1
         with:
           neovim-version: nightly
       - name: Print Neovim version
