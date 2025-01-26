@@ -1,0 +1,21 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - '.github/workflows/test.yml'
+      - 'src/*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Up Neovim
+        uses: davidbloss/setup-neovim@v1
+      - name: Print Neovim version
+        run: |
+          nvim --version

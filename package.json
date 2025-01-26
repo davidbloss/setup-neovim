@@ -1,0 +1,42 @@
+{
+  "name": "setup-neovim",
+  "version": "1.0.0",
+  "description": "Setup Neovim action",
+  "main": "index.ts",
+  "scripts": {
+    "build": "ncc build src/setup-neovim.ts --out dist",
+    "format": "prettier --no-error-on-unmatched-pattern --config ./.prettierrc.js --write \"**/*.{ts,yml,yaml}\"",
+    "format-check": "prettier --no-error-on-unmatched-pattern --config ./.prettierrc.js --check \"**/*.{ts,yml,yaml}\"",
+    "lint": "eslint --config ./.eslintrc.js",
+    "lint:fix": "eslint --config ./.eslintrc.js --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidbloss/setup-neovim.git"
+  },
+  "keywords": [
+    "actions",
+    "neovim",
+    "setup"
+  ],
+  "author": "David Bloss",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/tool-cache": "^2.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.29.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.21.0"
+  }
+}
