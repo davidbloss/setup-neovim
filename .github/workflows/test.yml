@@ -9,13 +9,26 @@ on:
       - 'src/*'
 
 jobs:
-  test:
+  setup-neovim-stable:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set Up Neovim
+      - name: Set Up Neovim - Stable
         uses: davidbloss/setup-neovim@main
+      - name: Print Neovim version
+        run: |
+          nvim --version
+
+  setup-neovim-nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Up Neovim - Nightly
+        uses: davidbloss/setup-neovim@main
+        with:
+          neovim-version: nightly
       - name: Print Neovim version
         run: |
           nvim --version

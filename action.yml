@@ -2,7 +2,7 @@ name: 'Setup Neovim'
 description: 'Sets up Neovim in your GitHub Actions workflow.'
 author: 'David Bloss'
 inputs:
-  neovim_version:
+  neovim-version:
     description: 'Neovim release version'
     default: 'stable'
     required: false

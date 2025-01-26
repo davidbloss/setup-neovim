@@ -23,7 +23,7 @@ steps:
   - uses: actions/checkout@v4
   - uses: davidbloss/setup-neovim@v1
     with:
-      tag: nightly
+      neovim-version: nightly
   - run: |
       nvim --version
 ```
