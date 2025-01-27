@@ -7,8 +7,8 @@
     "build": "ncc build src/setup-neovim.ts --out dist",
     "format": "prettier --no-error-on-unmatched-pattern --config ./.prettierrc.js --write \"**/*.{ts,yml,yaml}\"",
     "format-check": "prettier --no-error-on-unmatched-pattern --config ./.prettierrc.js --check \"**/*.{ts,yml,yaml}\"",
-    "lint": "eslint --config ./.eslintrc.js",
-    "lint:fix": "eslint --config ./.eslintrc.js --fix",
+    "lint": "eslint --config ./.eslintrc.js src/",
+    "lint:fix": "eslint --config ./.eslintrc.js --fix src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

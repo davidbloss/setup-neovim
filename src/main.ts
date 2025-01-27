@@ -40,7 +40,7 @@ export async function downloadNeovimRelease() {
 	}
 	core.debug(`Downloaded Neovim to ${neovimArchive}`);
 
-	let neovimBinPath = path.join(neovimArchive, releaseName.split('.')[0], 'bin')
+	const neovimBinPath = path.join(neovimArchive, releaseName.split('.')[0], 'bin')
 	core.addPath(neovimBinPath);
 	core.debug(`'${neovimBinPath}' was added to $PATH`);
 }
