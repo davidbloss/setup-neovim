@@ -18,7 +18,24 @@ jobs:
         uses: ./
       - name: Print Neovim version
         run: |
+          echo "Setup Neovim with stable version..."
           nvim --version
+
+  setup-neovim-linux64-old:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Up Neovim - v0.10.3
+        uses: ./
+        with:
+          neovim-version: v0.10.3
+      - name: Verify Neovim version
+        run: |
+          echo "Setup Neovim with version..."
+          nvim --version
+          nvim --version | grep v0.10.3 || exit 1
+          echo "Expected Neovim version installed"
 
   setup-neovim-nightly:
     runs-on: ubuntu-latest
@@ -31,4 +48,5 @@ jobs:
           neovim-version: nightly
       - name: Print Neovim version
         run: |
+          echo "Setup Neovim with nightly version..."
           nvim --version
