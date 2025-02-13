@@ -28255,16 +28255,24 @@ const core = __importStar(__nccwpck_require__(8478));
 const tc = __importStar(__nccwpck_require__(8410));
 const NEOVIM_URL = "https://github.com/neovim/neovim";
 const RELEASE_URL = `${NEOVIM_URL}/releases/download`;
-function getReleaseVersion() {
-    const version = core.getInput("neovim_version") || "stable";
-    if (version == "stable" || version == "nightly") {
-        return version;
-    }
+function getNeovimGitTags() {
     const gitTagsRaw = (__nccwpck_require__(5317).execSync)(`git ls-remote --tags ${NEOVIM_URL} | awk -F'/' '{print $3}' | cut -d '^' -f1 | uniq`);
-    const gitTags = gitTagsRaw.toString().split("\n");
-    if (gitTags.includes(version)) {
+    const gitTags = gitTagsRaw.toString().trimEnd().split("\n");
+    core.debug(`Available Neovim releases: ${gitTags}`);
+    return gitTags;
+}
+function getReleaseVersion() {
+    const version = core.getInput("neovim-version");
+    if (version === "stable" || version === "nightly") {
+        core.debug(`Requested Neovim version ${version}`);
         return version;
     }
+    const gitTags = getNeovimGitTags();
+    if (gitTags.includes(version)) {
+        core.debug(`Requested Neovim version ${version}`);
+        return version;
+    }
+    core.debug(`Requested invalid Neovim version "${version}". Default to "stable"`);
     return "stable";
 }
 function isLinuxArchNeeded(version) {
@@ -28303,9 +28311,9 @@ function extractNeovimArchive(archivePath) {
 }
 function downloadNeovimRelease() {
     return __awaiter(this, void 0, void 0, function* () {
-        const version = getReleaseVersion();
-        const releaseName = getReleaseName(version);
-        const url = path_1.default.join(RELEASE_URL, version, releaseName);
+        const releaseVersion = getReleaseVersion();
+        const releaseName = getReleaseName(releaseVersion);
+        const url = path_1.default.join(RELEASE_URL, releaseVersion, releaseName);
         core.debug(`Downloading Neovim ${url}`);
         const neovimDownloadPath = yield tc.downloadTool(url);
         const neovimArchive = yield extractNeovimArchive(neovimDownloadPath);
