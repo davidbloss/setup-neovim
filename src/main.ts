@@ -6,19 +6,30 @@ import * as tc from "@actions/tool-cache";
 const NEOVIM_URL = "https://github.com/neovim/neovim";
 const RELEASE_URL = `${NEOVIM_URL}/releases/download`;
 
-function getReleaseVersion(): string {
-	const version = core.getInput("neovim_version") || "stable";
-	if (version == "stable" || version == "nightly") {
-		return version;
-	}
-
+function getNeovimGitTags(): string[] {
 	const gitTagsRaw = require("child_process").execSync(
 		`git ls-remote --tags ${NEOVIM_URL} | awk -F'/' '{print $3}' | cut -d '^' -f1 | uniq`,
 	);
-	const gitTags = gitTagsRaw.toString().split("\n");
-	if (gitTags.includes(version)) {
+	const gitTags = gitTagsRaw.toString().trimEnd().split("\n");
+	core.debug(`Available Neovim releases: ${gitTags}`);
+	return gitTags;
+}
+
+function getReleaseVersion(): string {
+	const version = core.getInput("neovim-version") || "stable";
+	if (version == "stable" || version == "nightly") {
+		core.info(`Requested Neovim version ${version}`);
 		return version;
 	}
+
+	const gitTags = getNeovimGitTags();
+	if (gitTags.includes(version)) {
+		core.info(`Requested Neovim version ${version}`);
+		return version;
+	}
+	core.info(
+		`Requested invalid Neovim version "${version}". Default to "stable"`,
+	);
 	return "stable";
 }
 
@@ -64,7 +75,7 @@ export async function downloadNeovimRelease() {
 	const releaseName = getReleaseName(version);
 	const url = path.join(RELEASE_URL, version, releaseName);
 
-	core.debug(`Downloading Neovim ${url}`);
+	core.info(`Downloading Neovim ${url}`);
 	const neovimDownloadPath = await tc.downloadTool(url);
 	const neovimArchive = await extractNeovimArchive(neovimDownloadPath);
 
