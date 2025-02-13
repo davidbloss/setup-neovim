@@ -29,7 +29,7 @@ jobs:
       - name: Set Up Neovim - v0.10.3
         uses: ./
         with:
-          neovim-version: v0.10.3
+          neovim-version: 'v0.10.3'
       - name: Verify Neovim version
         run: |
           echo "Setup Neovim with version..."
