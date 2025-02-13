@@ -16,7 +16,7 @@ steps:
       nvim --version
 ```
 
-**Specific Tag:**
+**Nightly Release:**
 
 ```yml
 steps:
@@ -24,6 +24,18 @@ steps:
   - uses: davidbloss/setup-neovim@v1
     with:
       neovim-version: nightly
+  - run: |
+      nvim --version
+```
+
+**Release by tag:**
+
+```yml
+steps:
+  - uses: actions/checkout@v4
+  - uses: davidbloss/setup-neovim@v1
+    with:
+      neovim-version: v0.10.4
   - run: |
       nvim --version
 ```

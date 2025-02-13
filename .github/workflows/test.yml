@@ -29,12 +29,12 @@ jobs:
       - name: Set Up Neovim - v0.10.3
         uses: ./
         with:
-          neovim-version: 'v0.10.3'
+          neovim-version: v0.10.3
       - name: Verify Neovim version
         run: |
           echo "Setup Neovim with version..."
           nvim --version
-          nvim --version | grep v0.10.3 || exit 1
+          nvim --version | grep -q v0.10.3 || exit 1
           echo "Expected Neovim version installed"
 
   setup-neovim-nightly:
@@ -50,3 +50,5 @@ jobs:
         run: |
           echo "Setup Neovim with nightly version..."
           nvim --version
+          nvim --version | grep -wq dev || exit 1
+          echo "Expected nightly Neovim version installed"
