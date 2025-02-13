@@ -16,18 +16,18 @@ function getNeovimGitTags(): string[] {
 }
 
 function getReleaseVersion(): string {
-	const version = core.getInput("neovim-version") || "stable";
+	const version = core.getInput("neovim-version");
 	if (version == "stable" || version == "nightly") {
-		core.info(`Requested Neovim version ${version}`);
+		console.log(`Requested Neovim version ${version}`);
 		return version;
 	}
 
 	const gitTags = getNeovimGitTags();
 	if (gitTags.includes(version)) {
-		core.info(`Requested Neovim version ${version}`);
+		console.log(`Requested Neovim version ${version}`);
 		return version;
 	}
-	core.info(
+	console.log(
 		`Requested invalid Neovim version "${version}". Default to "stable"`,
 	);
 	return "stable";
@@ -75,14 +75,14 @@ export async function downloadNeovimRelease() {
 	const releaseName = getReleaseName(version);
 	const url = path.join(RELEASE_URL, version, releaseName);
 
-	core.info(`Downloading Neovim ${url}`);
+	console.log(`Downloading Neovim ${url}`);
 	const neovimDownloadPath = await tc.downloadTool(url);
 	const neovimArchive = await extractNeovimArchive(neovimDownloadPath);
 
 	if (!neovimArchive) {
 		throw new Error(`Unable to download Neovim from ${url}`);
 	}
-	core.debug(`Downloaded Neovim to ${neovimArchive}`);
+	console.log(`Downloaded Neovim to ${neovimArchive}`);
 
 	const neovimBinPath = path.join(
 		neovimArchive,
