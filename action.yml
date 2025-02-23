@@ -1,4 +1,4 @@
-name: 'Setup Neovim'
+name: 'Setup-Neovim'
 description: 'Sets up Neovim in your GitHub Actions workflow.'
 author: 'David Bloss'
 inputs:
